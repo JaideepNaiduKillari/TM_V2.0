@@ -6,7 +6,7 @@ body, html, #root {
   .leaflet-control-zoom,
   .leaflet-control-zoom-in,
   .leaflet-control-zoom-out {
-    /* Zoom controls are now enabled */
+    display: none !important;
   }
 .map-container {
   position: relative;
