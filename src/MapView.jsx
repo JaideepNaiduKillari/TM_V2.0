@@ -65,6 +65,7 @@ export default function MapView() {
   const [selectedFeature, setSelectedFeature] = useState(null);
   const [selectedLocation, setSelectedLocation] = useState(""); // Track currently selected location
   const [showLayoutMap, setShowLayoutMap] = useState(false); // State to toggle layout map
+  const [mapInstance, setMapInstance] = useState(null);
 
   useEffect(() => {
     const baseUrl = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : import.meta.env.BASE_URL + '/';
@@ -306,7 +307,7 @@ export default function MapView() {
                 }
               }}
             />
-            {selectedFeature && <FlyToFeature key={selectedFeature.properties?.name} feature={selectedFeature} />}
+            {selectedFeature && <FlyToFeature key={`fly-${selectedFeature.properties?.name}-${Date.now()}`} feature={selectedFeature} />}
             <FitBounds features={visibleFeatures} />
           </>
         )}
