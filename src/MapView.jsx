@@ -53,8 +53,14 @@ export default function MapView() {
   const [showLayoutMap, setShowLayoutMap] = useState(false); // State to toggle layout map
 
   useEffect(() => {
-    fetch(`${import.meta.env.BASE_URL}map.geojson`)
-      .then((res) => res.json())
+    const baseUrl = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : import.meta.env.BASE_URL + '/';
+    fetch(`${baseUrl}map.geojson`)
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`Failed to fetch map data: ${res.status} ${res.statusText}`);
+        }
+        return res.json();
+      })
       .then((data) => {
         const all = data.features || [];
         setAllFeatures(all);
@@ -73,6 +79,10 @@ export default function MapView() {
           .map(f => f.properties.name)
           .sort(); // Sort alphabetically for better UX
         setOtherNames(others);
+      })
+      .catch((error) => {
+        console.error('Error loading map data:', error);
+        // You could set an error state here to show a user-friendly message
       });
 
   }, []);
