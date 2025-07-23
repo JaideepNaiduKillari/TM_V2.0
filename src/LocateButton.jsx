@@ -34,10 +34,6 @@ export default function LocateButton() {
       {position && (
         <Marker
           position={position}
-          icon={L.icon({
-            iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
-            shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png"
-          })}
         >
           <Popup>You are here</Popup>
         </Marker>

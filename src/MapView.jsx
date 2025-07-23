@@ -2,6 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, GeoJSON, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
+
+// Fix for default markers in Vite/Webpack
+delete L.Icon.Default.prototype._getIconUrl;
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon-2x.png',
+  iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon.png',
+  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png',
+});
 import LocateButton from './LocateButton';
 import layoutMapImage from './assets/NTPC SIPAT TOWNSHIP UJJWALNAGAR2-1.png';
 
@@ -25,19 +33,25 @@ function FlyToFeature({ feature }) {
   useEffect(() => {
     if (feature && feature.geometry?.coordinates) {
       const coords = feature.geometry.coordinates;
+      console.log('FlyToFeature: Flying to feature', feature.properties?.name, feature.geometry.type, coords);
 
       // Handle different geometry types
       if (feature.geometry.type === 'Polygon') {
         const bounds = L.geoJSON(feature).getBounds();
+        console.log('Flying to Polygon bounds:', bounds);
         map.flyToBounds(bounds, { padding: [20, 20] });
       } else if (feature.geometry.type === 'LineString') {
         const bounds = L.geoJSON(feature).getBounds();
+        console.log('Flying to LineString bounds:', bounds);
         map.flyToBounds(bounds, { padding: [20, 20] });
       } else if (feature.geometry.type === 'Point') {
         const [lng, lat] = coords;
         const latlng = L.latLng(lat, lng);
+        console.log('Flying to Point:', latlng, 'at zoom 18');
         map.flyTo(latlng, 18);
       }
+    } else {
+      console.log('FlyToFeature: No valid feature or coordinates', feature);
     }
   }, [feature, map]);
 
