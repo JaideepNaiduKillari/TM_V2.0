@@ -53,7 +53,7 @@ export default function MapView() {
   const [showLayoutMap, setShowLayoutMap] = useState(false); // State to toggle layout map
 
   useEffect(() => {
-    fetch('/map.geojson')
+    fetch(`${import.meta.env.BASE_URL}map.geojson`)
       .then((res) => res.json())
       .then((data) => {
         const all = data.features || [];
