@@ -142,7 +142,7 @@ export default function MapView() {
 
   return (
     <>
-      <div style={{ position: 'absolute', top: 10, left: 45, zIndex: 1000, display: 'flex', gap: '10px' }}>
+      <div style={{ position: 'absolute', top: 10, left: 10, zIndex: 1000, display: 'flex', gap: '10px' }}>
         <select
           value={selectedLocation}
           onChange={handleSelect}

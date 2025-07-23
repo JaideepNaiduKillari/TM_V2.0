@@ -28,7 +28,7 @@ export default function LocateButton() {
   return (
     <>
       <button className="locate-btn" onClick={handleClick}>
-        📍
+        🔴
       </button>
 
       {position && (

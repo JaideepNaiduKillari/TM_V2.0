@@ -3,7 +3,11 @@ body, html, #root {
   margin: 0;
   font-family: sans-serif;
 }
-
+  .leaflet-control-zoom,
+  .leaflet-control-zoom-in,
+  .leaflet-control-zoom-out {
+    display: none !important;
+  }
 .map-container {
   position: relative;
   height: 100%;
